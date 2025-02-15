@@ -12,15 +12,13 @@ screenGui.Parent = playerGui
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 400, 0, 350)
-frame.Position = UDim2.new(0.5, - 200, - 0.5, - 175)
+frame.Position = UDim2.new(0.5, -200, -0.5, -175)
 frame.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
 frame.Parent = screenGui
 
 local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-local targetPosition = UDim2.new(0.5, - 200, 0.5, - 175)
-local tween = TweenService:Create(frame, tweenInfo, {
-    Position = targetPosition
-})
+local targetPosition = UDim2.new(0.5, -200, 0.5, -175)
+local tween = TweenService:Create(frame, tweenInfo, { Position = targetPosition })
 tween:Play()
 
 local title = Instance.new("TextLabel")
@@ -58,7 +56,7 @@ title.InputBegan:Connect(function(input)
 end)
 
 local scrollFrame = Instance.new("ScrollingFrame")
-scrollFrame.Size = UDim2.new(1, - 10, 1, - 70)
+scrollFrame.Size = UDim2.new(1, -10, 1, -70)
 scrollFrame.Position = UDim2.new(0, 5, 0, 35)
 scrollFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
 scrollFrame.ScrollBarThickness = 6
@@ -73,7 +71,7 @@ logList.Padding = UDim.new(0, 2)
 
 local copyButton = Instance.new("TextButton")
 copyButton.Size = UDim2.new(1, 0, 0, 30)
-copyButton.Position = UDim2.new(0, 0, 1, - 35)
+copyButton.Position = UDim2.new(0, 0, 1, -35)
 copyButton.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
 copyButton.TextColor3 = Color3.new(1, 1, 1)
 copyButton.Text = "Copy"
@@ -83,14 +81,15 @@ copyButton.Parent = frame
 
 local function addMessage(text, color)
     local messageBox = Instance.new("TextBox")
-    messageBox.Size = UDim2.new(1, - 10, 0, 20)
+    messageBox.Size = UDim2.new(1, -10, 0, 20)
+    messageBox.AutomaticSize = Enum.AutomaticSize.Y  
     messageBox.BackgroundTransparency = 1
     messageBox.TextColor3 = color
     messageBox.Text = text
     messageBox.TextXAlignment = Enum.TextXAlignment.Left
     messageBox.TextWrapped = true
     messageBox.Font = Enum.Font.SourceSans
-    messageBox.TextSize = 21
+    messageBox.TextSize = 17
     messageBox.ClearTextOnFocus = false
     messageBox.TextEditable = false
     messageBox.Selectable = true
@@ -98,12 +97,12 @@ local function addMessage(text, color)
 end
 
 LogService.MessageOut:Connect(function(message, messageType)
-    local color = Color3.new(1, 1, 1)
+    local color = Color3.new(216, 215, 215)
 
     if messageType == Enum.MessageType.MessageWarning then
-        color = Color3.fromRGB(255, 255, 0)
+        color = Color3.fromRGB(236, 202, 65)
     elseif messageType == Enum.MessageType.MessageError then
-        color = Color3.fromRGB(255, 0, 0)
+        color = Color3.fromRGB(161, 73, 63)
     elseif messageType == Enum.MessageType.MessageInfo then
         color = Color3.fromRGB(0, 170, 255)
     end
@@ -119,6 +118,9 @@ copyButton.MouseButton1Click:Connect(function()
         end
     end
 
+    local copiedText = table.concat(messages, "\n")
+    setclipboard(copiedText)
+end)
     local copiedText = table.concat(messages, "\n")
     setclipboard(copiedText)
 end)
