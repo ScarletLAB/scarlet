@@ -88,7 +88,7 @@ local function addMessage(text, color)
     messageBox.Text = text
     messageBox.TextXAlignment = Enum.TextXAlignment.Left
     messageBox.TextWrapped = true
-    messageBox.Font = Enum.Font.SourceSans
+    messageBox.Font = Enum.Font.Code
     messageBox.TextSize = 16.5
     messageBox.ClearTextOnFocus = false
     messageBox.TextEditable = false
