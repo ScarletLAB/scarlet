@@ -94,6 +94,12 @@ local function addMessage(text, color)
     messageBox.TextEditable = false
     messageBox.Selectable = true
     messageBox.Parent = scrollFrame
+
+    local divider = Instance.new("Frame")
+    divider.Size = UDim2.new(1, -10, 0, 1)
+    divider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    divider.BackgroundTransparency = 0.95 
+    divider.Parent = scrollFrame
 end
 
 LogService.MessageOut:Connect(function(message, messageType)
