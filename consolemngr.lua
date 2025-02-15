@@ -12,15 +12,13 @@ screenGui.Parent = playerGui
 
 local frame = Instance.new("Frame")
 frame.Size = UDim2.new(0, 400, 0, 350)
-frame.Position = UDim2.new(0.5, - 200, - 0.5, - 175)
+frame.Position = UDim2.new(0.5, -200, -0.5, -175)
 frame.BackgroundColor3 = Color3.fromRGB(51, 51, 51)
 frame.Parent = screenGui
 
 local tweenInfo = TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
-local targetPosition = UDim2.new(0.5, - 200, 0.5, - 175)
-local tween = TweenService:Create(frame, tweenInfo, {
-    Position = targetPosition
-})
+local targetPosition = UDim2.new(0.5, -200, 0.5, -175)
+local tween = TweenService:Create(frame, tweenInfo, { Position = targetPosition })
 tween:Play()
 
 local title = Instance.new("TextLabel")
@@ -58,7 +56,7 @@ title.InputBegan:Connect(function(input)
 end)
 
 local scrollFrame = Instance.new("ScrollingFrame")
-scrollFrame.Size = UDim2.new(1, - 10, 1, - 70)
+scrollFrame.Size = UDim2.new(1, -10, 1, -70)
 scrollFrame.Position = UDim2.new(0, 5, 0, 35)
 scrollFrame.BackgroundColor3 = Color3.fromRGB(38, 38, 38)
 scrollFrame.ScrollBarThickness = 6
@@ -68,7 +66,7 @@ scrollFrame.Parent = frame
 
 local copyButton = Instance.new("TextButton")
 copyButton.Size = UDim2.new(1, 0, 0, 30)
-copyButton.Position = UDim2.new(0, 0, 1, - 35)
+copyButton.Position = UDim2.new(0, 0, 1, -35)
 copyButton.BackgroundColor3 = Color3.fromRGB(26, 26, 26)
 copyButton.TextColor3 = Color3.new(1, 1, 1)
 copyButton.Text = "Copy"
@@ -83,7 +81,7 @@ logList.Padding = UDim.new(0, 2)
 
 local function addMessage(text, color)
     local messageBox = Instance.new("TextBox")
-    messageBox.Size = UDim2.new(1, - 10, 0, 20)
+    messageBox.Size = UDim2.new(1, -10, 0, 20)
     messageBox.AutomaticSize = Enum.AutomaticSize.Y  
     messageBox.BackgroundTransparency = 1
     messageBox.TextColor3 = color
@@ -98,7 +96,7 @@ local function addMessage(text, color)
     messageBox.Parent = scrollFrame
 
     local divider = Instance.new("Frame")
-    divider.Size = UDim2.new(1, - 10, 0, 1)
+    divider.Size = UDim2.new(1, -10, 0, 1)
     divider.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     divider.BackgroundTransparency = 0.95 
     divider.Parent = scrollFrame
@@ -120,16 +118,20 @@ end)
 
 local closeButton = Instance.new("TextButton")
 closeButton.Size = UDim2.new(0, 30, 0, 30)
-closeButton.Position = UDim2.new(1, - 30, 0, 0)
+closeButton.Position = UDim2.new(1, -30, 0, 0)
 closeButton.BackgroundColor3 = title.BackgroundColor3
 closeButton.TextColor3 = Color3.new(1, 1, 1)
-closeButton.Text = "X"
+closeButton.Text = "×"
 closeButton.Font = Enum.Font.SourceSans
-closeButton.TextSize = 18
+closeButton.TextSize = 24
 closeButton.Parent = frame
 
 closeButton.MouseButton1Click:Connect(function()
-    screenGui:Destroy()
+    local exitTween = TweenService:Create(frame, tweenInfo, { Position = UDim2.new(0.5, -200, -0.5, -175) })
+    exitTween:Play()
+    exitTween.Completed:Connect(function()
+        screenGui:Destroy()
+    end)
 end)
 
 copyButton.MouseButton1Click:Connect(function()
@@ -139,10 +141,6 @@ copyButton.MouseButton1Click:Connect(function()
             table.insert(messages, child.Text)
         end
     end
-
-    local copiedText = table.concat(messages, "\n")
-    setclipboard(copiedText)
-end)
 
     local copiedText = table.concat(messages, "\n")
     setclipboard(copiedText)
