@@ -89,7 +89,7 @@ local function addMessage(text, color)
     messageBox.TextXAlignment = Enum.TextXAlignment.Left
     messageBox.TextWrapped = true
     messageBox.Font = Enum.Font.SourceSans
-    messageBox.TextSize = 17
+    messageBox.TextSize = 16.5
     messageBox.ClearTextOnFocus = false
     messageBox.TextEditable = false
     messageBox.Selectable = true
@@ -118,9 +118,6 @@ copyButton.MouseButton1Click:Connect(function()
         end
     end
 
-    local copiedText = table.concat(messages, "\n")
-    setclipboard(copiedText)
-end)
     local copiedText = table.concat(messages, "\n")
     setclipboard(copiedText)
 end)
