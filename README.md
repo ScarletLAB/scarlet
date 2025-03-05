@@ -11,6 +11,7 @@
 
 
 War Tycoon - 🟢
+> best rage script with rpg spam / farm drones
 
 Universal - 🟡
 > (not updated for long time)
