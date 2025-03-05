@@ -13,7 +13,7 @@
 ***War Tycoon - 🟢***
 > <sub>best rage script with rpg spam / farm drones</sub>
 
-***Universal - 🟡**
+***Universal - 🟡***
 > <sub>(not updated for long time)</sub>
 
 ***Rivals - 🔴***
