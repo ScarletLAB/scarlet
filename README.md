@@ -21,7 +21,6 @@
 
 ### Scripts
 ***War Tycoon***
-```lua
-loadstring(game:HttpGet("https://raw.githubusercontent.com/ScarletLAB/scarlet/main/wtyc/main.lua"))()```
+```lua loadstring(game:HttpGet("https://raw.githubusercontent.com/ScarletLAB/scarlet/main/wtyc/main.lua"))()```
 
 ***Universal***
