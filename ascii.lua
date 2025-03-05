@@ -1,4 +1,5 @@
 -- 1
+local ASCII1 = {
       _/_/_/                                _/              _/
    _/          _/_/_/    _/_/_/  _/  _/_/  _/    _/_/    _/_/_/_/
     _/_/    _/        _/    _/  _/_/      _/  _/_/_/_/    _/
@@ -9,9 +10,10 @@ _/_/_/      _/_/_/    _/_/_/  _/        _/    _/_/_/      _/_/
    _/          _/_/_/  _/_/_/      _/_/_/
   _/        _/    _/  _/    _/  _/_/
  _/        _/    _/  _/    _/      _/_/
-_/_/_/_/    _/_/_/  _/_/_/    _/_/_/
+_/_/_/_/    _/_/_/  _/_/_/    _/_/_/ }
 
 -- 2
+local ASCII2 = {
    SSSSSSSSSSSSSSS                                                         lllllll                              tttt
  SS:::::::::::::::S                                                        l:::::l                           ttt:::t
 S:::::SSSSSS::::::S                                                        l:::::l                           t:::::t
@@ -45,4 +47,4 @@ LL:::::::LL                               b:::::b
 LL:::::::LLLLLLLLL:::::La::::a    a:::::a b:::::bbbbbb::::::bs:::::ssss::::::s
 L::::::::::::::::::::::La:::::aaaa::::::a b::::::::::::::::b s::::::::::::::s
 L::::::::::::::::::::::L a::::::::::aa:::ab:::::::::::::::b   s:::::::::::ss
-LLLLLLLLLLLLLLLLLLLLLLLL  aaaaaaaaaa  aaaabbbbbbbbbbbbbbbb     sssssssssss
+LLLLLLLLLLLLLLLLLLLLLLLL  aaaaaaaaaa  aaaabbbbbbbbbbbbbbbb     sssssssssss }
