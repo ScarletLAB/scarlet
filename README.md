@@ -10,11 +10,11 @@
 🔴 - _On Update / Patched / Outdated / Discontinued_
 
 
-War Tycoon - 🟢
+***War Tycoon - 🟢***
 > <sub>best rage script with rpg spam / farm drones</sub>
 
-Universal - 🟡
+***Universal - 🟡**
 > <sub>(not updated for long time)</sub>
 
-Rivals - 🔴
+***Rivals - 🔴***
 > <sub>(not released)</sub>
