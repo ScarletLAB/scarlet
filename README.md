@@ -12,6 +12,8 @@
 
 War Tycoon - 🟢
 
-Universal - 🟡 -# (not updated for long time)
+Universal - 🟡
+> (not updated for long time)
 
-Rivals - 🔴 -# (not released)
+Rivals - 🔴
+> (not released)
