@@ -1,4 +1,7 @@
 # Scarlet
-### [Discord Server](https://discord.gg/TPGnC4BVJF).
+### [Discord Server](https://discord.gg/TPGnC4BVJF)
 
-Status
+Statuses
+🟢 - Working
+🟡 - Not Stable
+🔴 - On Update / Patched / Outdated / Discontinued
