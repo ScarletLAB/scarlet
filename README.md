@@ -3,8 +3,8 @@
 
 **Statuses**
 
-🟢 - Working
+🟢 - _Working_
 
-🟡 - Not Stable
+🟡 - _Not Stable_
 
-🔴 - On Update / Patched / Outdated / Discontinued
+🔴 - _On Update / Patched / Outdated / Discontinued_
