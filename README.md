@@ -27,3 +27,7 @@ loadstring(game:HttpGet("https://raw.githubusercontent.com/ScarletLAB/scarlet/ma
 ```
 
 ***Universal***
+
+```lua
+loadstring(game:HttpGet("https://raw.githubusercontent.com/ScarletLAB/scarlet/main/universal/main.lua"))()
+```
