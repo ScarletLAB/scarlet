@@ -20,7 +20,8 @@
 > <sub>(not released)</sub>
 
 ### Scripts
-<sub>divider</sub>
 ***War Tycoon***
 ```lua
 loadstring(game:HttpGet("https://raw.githubusercontent.com/ScarletLAB/scarlet/main/wtyc/main.lua"))()```
+
+***Universal***
