@@ -14,7 +14,7 @@ War Tycoon - 🟢
 > <sub>best rage script with rpg spam / farm drones</sub>
 
 Universal - 🟡
-> (not updated for long time)
+> <sub>(not updated for long time)</sub>
 
 Rivals - 🔴
-> (not released)
+> <sub>(not released)</sub>
