@@ -1,5 +1,4 @@
 # Scarlet
+## [Discord Server](https://discord.gg/TPGnC4BVJF).
 
 Status
-`rgb(9, 105, 218)`
-wwswswsws
