@@ -10,4 +10,8 @@
 🔴 - _On Update / Patched / Outdated / Discontinued_
 
 
-SSS
+War Tycoon - 🟢
+
+Universal - 🟡 -# (not updated for long time)
+
+Rivals - 🔴 -# (not released)
