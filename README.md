@@ -3,5 +3,7 @@
 
 Statuses
 🟢 - Working
+
 🟡 - Not Stable
+
 🔴 - On Update / Patched / Outdated / Discontinued
