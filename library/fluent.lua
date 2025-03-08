@@ -67,8 +67,8 @@ local Themes = {
 		DialogInput = Color3.fromRGB(27, 27, 27),
 		DialogInputLine = Color3.fromRGB(80, 80, 80),
 
-		Text = Color3.fromRGB(120, 120, 120),
-		SubText = Color3.fromRGB(85, 85, 85),
+		Text = Color3.fromRGB(220, 220, 220),
+		SubText = Color3.fromRGB(150, 150, 150),
 		Hover = Color3.fromRGB(60, 60, 60),
 		HoverChange = 0.07,
 	},
