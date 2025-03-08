@@ -283,7 +283,7 @@ local Library = {
 	Acrylic = false,
 	Transparency = true,
 	MinimizeKeybind = nil,
-	MinimizerIcon = nil,
+	MinimizerIcon = rbxassetid://10734954538,
 	MinimizeKey = Enum.KeyCode.LeftControl,
 }
 
