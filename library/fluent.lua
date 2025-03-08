@@ -1,5 +1,5 @@
 --[[
-input broken
+input broken (not by me)
 ]]
 
 local Lighting = game:GetService("Lighting")
