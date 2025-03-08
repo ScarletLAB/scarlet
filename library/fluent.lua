@@ -5795,7 +5795,7 @@ function Library:CreateWindow(Config)
 			PaddingTop = UDim.new(0, 2),
 		}),
 		New("ImageLabel", {
-			Image = Config.MinimizerIcon or "rbxassetid://17071506793",
+			Image = Config.MinimizerIcon or "rbxassetid://78196273565073",
 			Size = UDim2.new(1, 0, 1, 0),
 			BackgroundTransparency = 1,
 		}, {
