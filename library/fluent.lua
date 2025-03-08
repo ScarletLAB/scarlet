@@ -28,7 +28,7 @@ local Themes = {
 		Name = "Main",
 		Accent = Color3.fromRGB(215, 67, 86),
 
-		AcrylicMain = Color3.fromRGB(30, 30, 30),
+		AcrylicMain = Color3.fromRGB(22, 22, 22),
 		AcrylicBorder = Color3.fromRGB(45, 45, 45),
 		AcrylicGradient = ColorSequence.new(Color3.fromRGB(10, 10, 10), Color3.fromRGB(38, 12, 15)),
 		AcrylicNoise = 0.9,
@@ -57,7 +57,7 @@ local Themes = {
 		InputFocused = Color3.fromRGB(5, 5, 5),
 		InputIndicator = Color3.fromRGB(75, 75, 75),
 
-		Dialog = Color3.fromRGB(22, 2, 22),
+		Dialog = Color3.fromRGB(22, 22, 22),
 		DialogHolder = Color3.fromRGB(17, 17, 17),
 		DialogHolderLine = Color3.fromRGB(15, 15, 15),
 		DialogButton = Color3.fromRGB(22, 22, 22),
