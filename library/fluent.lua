@@ -73,7 +73,7 @@ local Themes = {
 	},
 	Light = {
 		Name = "Light",
-		Accent = Color3.fromRGB(0, 103, 192),
+		Accent = Color3.fromRGB(244, 67, 88),
 
 		AcrylicMain = Color3.fromRGB(200, 200, 200),
 		AcrylicBorder = Color3.fromRGB(120, 120, 120),
