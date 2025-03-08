@@ -2794,7 +2794,7 @@ ElementsTable.Button = (function()
 		local ButtonFrame = Components.Element(Config.Title, Config.Description, self.Container, true, Config)
 
 		local ButtonIco = New("ImageLabel", {
-			Image = "rbxassetid://10709791437",
+			Image = "rbxassetid://10734975692", -- rbxassetid://10709791437
 			Size = UDim2.fromOffset(16, 16),
 			AnchorPoint = Vector2.new(1, 0.5),
 			Position = UDim2.new(1, -10, 0.5, 0),
