@@ -252,7 +252,7 @@ local RayfieldLibrary = {
 			ElementStroke = Color3.fromRGB(65, 35, 35),
 			SecondaryElementStroke = Color3.fromRGB(55, 25, 25),
 		
-			SliderBackground = Color3.fromRGB(65, 123, 205),
+			SliderBackground = Color3.fromRGB(124, 39, 50),
 			SliderProgress = Color3.fromRGB(215, 67, 86), 
 			SliderStroke = Color3.fromRGB(124, 39, 50),
 		
