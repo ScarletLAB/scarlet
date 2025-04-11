@@ -231,37 +231,45 @@ local RayfieldLibrary = {
 	Flags = {},
 	Theme = {
 		Default = {
-			TextColor = Color3.fromRGB(240, 240, 240),          -- unchanged
-			Background = Color3.fromRGB(25, 25, 25),              -- unchanged
-			Topbar = Color3.fromRGB(34, 10, 10),                  -- changed to dark red tone
-			Shadow = Color3.fromRGB(20, 20, 20),                  -- unchanged
-			NotificationBackground = Color3.fromRGB(20, 20, 20),  -- unchanged
-			NotificationActionsBackground = Color3.fromRGB(230, 230, 230), -- unchanged
-			TabBackground = Color3.fromRGB(80, 30, 30),           -- red tinted
-			TabStroke = Color3.fromRGB(85, 50, 50),               -- red tinted
-			TabBackgroundSelected = Color3.fromRGB(210, 80, 80),  -- light red tint for selected tab
-			TabTextColor = Color3.fromRGB(240, 240, 240),         -- unchanged
-			SelectedTabTextColor = Color3.fromRGB(50, 50, 50),    -- unchanged
-			ElementBackground = Color3.fromRGB(35, 25, 25),       -- red tinted
-			ElementBackgroundHover = Color3.fromRGB(40, 30, 30),  -- red tinted
-			SecondaryElementBackground = Color3.fromRGB(25, 15, 15), -- red tinted
-			ElementStroke = Color3.fromRGB(50, 40, 40),           -- red tinted
-			SecondaryElementStroke = Color3.fromRGB(40, 30, 30),  -- red tinted
-			SliderBackground = Color3.fromRGB(90, 30, 30),         -- red tinted
-			SliderProgress = Color3.fromRGB(60, 20, 20),           -- red tinted
-			SliderStroke = Color3.fromRGB(70, 30, 30),             -- red tinted
-			ToggleBackground = Color3.fromRGB(30, 20, 20),         -- red tinted
-			ToggleEnabled = Color3.fromRGB(150, 0, 0),             -- dark red
-			ToggleDisabled = Color3.fromRGB(100, 100, 100),        -- unchanged
-			ToggleEnabledStroke = Color3.fromRGB(180, 0, 0),       -- dark red accent
-			ToggleDisabledStroke = Color3.fromRGB(125, 125, 125),  -- unchanged
-			ToggleEnabledOuterStroke = Color3.fromRGB(100, 100, 100), -- unchanged
-			ToggleDisabledOuterStroke = Color3.fromRGB(65, 65, 65),    -- unchanged
-			DropdownSelected = Color3.fromRGB(30, 20, 20),         -- red tinted
-			DropdownUnselected = Color3.fromRGB(25, 15, 15),       -- red tinted
-			InputBackground = Color3.fromRGB(25, 15, 15),          -- red tinted
-			InputStroke = Color3.fromRGB(40, 30, 30),              -- red tinted
-			PlaceholderColor = Color3.fromRGB(150, 100, 100)       -- red tinted
+			TextColor = Color3.fromRGB(240, 240, 240),
+
+			Background = Color3.fromRGB(55, 25, 25),
+			Topbar = Color3.fromRGB(64, 34, 34),
+			Shadow = Color3.fromRGB(50, 20, 20),
+
+			NotificationBackground = Color3.fromRGB(50, 20, 20),
+			NotificationActionsBackground = Color3.fromRGB(250, 230, 230),
+
+			TabBackground = Color3.fromRGB(110, 80, 80),
+			TabStroke = Color3.fromRGB(115, 85, 85),
+			TabBackgroundSelected = Color3.fromRGB(240, 210, 210),
+			TabTextColor = Color3.fromRGB(255, 240, 240),
+			SelectedTabTextColor = Color3.fromRGB(80, 50, 50),
+
+			ElementBackground = Color3.fromRGB(65, 35, 35),
+			ElementBackgroundHover = Color3.fromRGB(40, 40, 40),
+			SecondaryElementBackground = Color3.fromRGB(55, 25, 25),
+			ElementStroke = Color3.fromRGB(80, 50, 50),
+			SecondaryElementStroke = Color3.fromRGB(70, 40, 40),
+
+			SliderBackground = Color3.fromRGB(80, 138, 220),
+			SliderProgress = Color3.fromRGB(80, 138, 220),
+			SliderStroke = Color3.fromRGB(88, 163, 255),
+
+			ToggleBackground = Color3.fromRGB(60, 30, 30),
+			ToggleEnabled = Color3.fromRGB(30, 146, 214),
+			ToggleDisabled = Color3.fromRGB(130, 100, 100),
+			ToggleEnabledStroke = Color3.fromRGB(30, 170, 255),
+			ToggleDisabledStroke = Color3.fromRGB(165, 125, 125),
+			ToggleEnabledOuterStroke = Color3.fromRGB(130, 100, 100),
+			ToggleDisabledOuterStroke = Color3.fromRGB(95, 65, 65),
+
+			DropdownSelected = Color3.fromRGB(70, 40, 40),
+			DropdownUnselected = Color3.fromRGB(60, 30, 30),
+
+			InputBackground = Color3.fromRGB(60, 30, 30),
+			InputStroke = Color3.fromRGB(95, 65, 65),
+			PlaceholderColor = Color3.fromRGB(208, 178, 178)
 		},
 
 		Ocean = {
@@ -596,39 +604,6 @@ local RayfieldLibrary = {
 
 			InputBackground = Color3.fromRGB(220, 230, 240),
 			InputStroke = Color3.fromRGB(180, 190, 200),
-			PlaceholderColor = Color3.fromRGB(150, 150, 150)
-		},
-		Bloody = { -- новая тема Bloody с основным цветом #D74356 (RGB: 215, 67, 86)
-			TextColor = Color3.fromRGB(255, 255, 255),
-			Background = Color3.fromRGB(20, 20, 20),
-			Topbar = Color3.fromRGB(215, 67, 86),
-			Shadow = Color3.fromRGB(10, 10, 10),
-			NotificationBackground = Color3.fromRGB(40, 40, 40),
-			NotificationActionsBackground = Color3.fromRGB(215, 67, 86),
-			TabBackground = Color3.fromRGB(50, 50, 50),
-			TabStroke = Color3.fromRGB(60, 60, 60),
-			TabBackgroundSelected = Color3.fromRGB(215, 67, 86),
-			TabTextColor = Color3.fromRGB(255, 255, 255),
-			SelectedTabTextColor = Color3.fromRGB(0, 0, 0),
-			ElementBackground = Color3.fromRGB(30, 30, 30),
-			ElementBackgroundHover = Color3.fromRGB(40, 40, 40),
-			SecondaryElementBackground = Color3.fromRGB(25, 25, 25),
-			ElementStroke = Color3.fromRGB(55, 55, 55),
-			SecondaryElementStroke = Color3.fromRGB(45, 45, 45),
-			SliderBackground = Color3.fromRGB(215, 67, 86),
-			SliderProgress = Color3.fromRGB(215, 67, 86),
-			SliderStroke = Color3.fromRGB(230, 100, 110),
-			ToggleBackground = Color3.fromRGB(30, 30, 30),
-			ToggleEnabled = Color3.fromRGB(215, 67, 86),
-			ToggleDisabled = Color3.fromRGB(100, 100, 100),
-			ToggleEnabledStroke = Color3.fromRGB(215, 67, 86),
-			ToggleDisabledStroke = Color3.fromRGB(120, 120, 120),
-			ToggleEnabledOuterStroke = Color3.fromRGB(180, 50, 60),
-			ToggleDisabledOuterStroke = Color3.fromRGB(80, 80, 80),
-			DropdownSelected = Color3.fromRGB(40, 40, 40),
-			DropdownUnselected = Color3.fromRGB(30, 30, 30),
-			InputBackground = Color3.fromRGB(30, 30, 30),
-			InputStroke = Color3.fromRGB(80, 80, 80),
 			PlaceholderColor = Color3.fromRGB(150, 150, 150)
 		},
 	}
@@ -1056,7 +1031,7 @@ function RayfieldLibrary:Notify(data) -- action e.g open messages
 
 		-- Calculate textbounds and set initial values
 		local bounds = {newNotification.Title.TextBounds.Y, newNotification.Description.TextBounds.Y}
-		newNotification.Size = UDim2.new(1, 0, 0, -Notifications:FindFirstChild("UIListLayout").Padding.Offset)
+		newNotification.Size = UDim2.new(1, -60, 0, -Notifications:FindFirstChild("UIListLayout").Padding.Offset)
 
 		newNotification.Icon.Size = UDim2.new(0, 32, 0, 32)
 		newNotification.Icon.Position = UDim2.new(0, 20, 0.5, 0)
@@ -3917,7 +3892,7 @@ if useStudio then
 
 	local Label2 = Tab:CreateLabel("Warning", 4483362458, Color3.fromRGB(255, 159, 49),  true)
 
-	local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph Example"})
+	local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph Example"})
 end
 
 if CEnabled and Main:FindFirstChild('Notice') then
