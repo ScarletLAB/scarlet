@@ -5753,14 +5753,6 @@ local InterfaceManager = {} do
 		InterfaceManager:LoadSettings()
 	end
 end
-					
-section:AddButton({
-    Title = "Console Manager",
-    Description = "There is no turning back!",
-    Callback = function()
-        loadstring(game:HttpGet("https://raw.githubusercontent.com/ScarletLAB/scarlet/main/consolemngr.lua"))()
-    end
-})
 
 function Library:CreateWindow(Config)
 	assert(Config.Title, "Window - Missing Title")
