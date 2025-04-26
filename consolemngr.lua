@@ -1,3 +1,23 @@
+--[[
+To log messages in console before script executed, paste this codeblock in your main script:
+if not _G.__LOGS_BEFORE then
+    _G.__LOGS_BEFORE = {}
+    _G.__INSERTING_LOGS = {}
+
+    local LogService = game:GetService("LogService")
+    LogService.MessageOut:Connect(function(msg, msgType)
+        table.insert(_G.__LOGS_BEFORE, {text = msg, type = msgType, time = os.time()})
+        for _, fn in ipairs(_G.__INSERTING_LOGS) do
+            pcall(fn, msg, msgType)
+        end
+    end)
+end
+
+function _G.__INSERT_LOGS(fn)
+    table.insert(_G.__INSERTING_LOGS, fn)
+    return _G.__LOGS_BEFORE
+end]]
+
 local Players = game:GetService("Players")
 local LogService = game:GetService("LogService")
 local UserInputService = game:GetService("UserInputService")
@@ -102,19 +122,44 @@ local function addMessage(text, color)
     divider.Parent = scrollFrame
 end
 
-LogService.MessageOut:Connect(function(message, messageType)
-    local color = Color3.new(216, 215, 215)
-
-    if messageType == Enum.MessageType.MessageWarning then
-        color = Color3.fromRGB(236, 202, 65)
-    elseif messageType == Enum.MessageType.MessageError then
-        color = Color3.fromRGB(161, 73, 63)
-    elseif messageType == Enum.MessageType.MessageInfo then
-        color = Color3.fromRGB(0, 170, 255)
+if _G.__INSERT_LOGS then
+    local logs = _G.__INSERT_LOGS(function(msg, msgType)
+        local color = Color3.new(216, 215, 215)
+        if msgType == Enum.MessageType.MessageWarning then
+            color = Color3.fromRGB(236, 202, 65)
+        elseif msgType == Enum.MessageType.MessageError then
+            color = Color3.fromRGB(161, 73, 63)
+        elseif msgType == Enum.MessageType.MessageInfo then
+            color = Color3.fromRGB(0, 170, 255)
+        end
+        addMessage(msg, color)
+    end)
+    for _, entry in ipairs(logs) do
+        local color = Color3.new(216, 215, 215)
+        if entry.type == Enum.MessageType.MessageWarning then
+            color = Color3.fromRGB(236, 202, 65)
+        elseif entry.type == Enum.MessageType.MessageError then
+            color = Color3.fromRGB(161, 73, 63)
+        elseif entry.type == Enum.MessageType.MessageInfo then
+            color = Color3.fromRGB(0, 170, 255)
+        end
+        addMessage(entry.text, color)
     end
+else
+    LogService.MessageOut:Connect(function(message, messageType)
+        local color = Color3.new(216, 215, 215)
 
-    addMessage(message, color)
-end)
+        if messageType == Enum.MessageType.MessageWarning then
+            color = Color3.fromRGB(236, 202, 65)
+        elseif messageType == Enum.MessageType.MessageError then
+            color = Color3.fromRGB(161, 73, 63)
+        elseif messageType == Enum.MessageType.MessageInfo then
+            color = Color3.fromRGB(0, 170, 255)
+        end
+
+        addMessage(message, color)
+    end)
+end
 
 local closeButton = Instance.new("TextButton")
 closeButton.Size = UDim2.new(0, 30, 0, 30)
