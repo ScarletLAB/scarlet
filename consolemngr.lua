@@ -16,7 +16,8 @@ end
 function _G.__INSERT_LOGS(fn)
     table.insert(_G.__INSERTING_LOGS, fn)
     return _G.__LOGS_BEFORE
-end]]
+end
+]]
 
 local Players = game:GetService("Players")
 local LogService = game:GetService("LogService")
