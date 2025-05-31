@@ -33,7 +33,7 @@ function n:Notify(t, ti, d)
     sh.ImageColor3 = c.shadow
     sh.Size = UDim2.new(1.4, 0, 1.2, 0)
     sh.Position = UDim2.new(0.5, 0, 0.5, 0)
-    sh.ImageTransparency = 0.7
+    sh.ImageTransparency = 1
     sh.Parent = f
     local cr = Instance.new("UICorner")
     cr.CornerRadius = UDim.new(0, 12)
@@ -63,19 +63,24 @@ function n:Notify(t, ti, d)
     f.Visible = true
     f.BackgroundTransparency = 1
     f.Position = UDim2.new(1, -360, 1, 120)
+    sh.ImageTransparency = 1
     local ts = game:GetService("TweenService")
-    ts:Create(f, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
-        Position = UDim2.new(1, -360, 1, -110),
+    ts:Create(f, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
         BackgroundTransparency = 0
     }):Play()
-    ts:Create(sh, TweenInfo.new(0.3), {ImageTransparency = 0.5}):Play()
+    ts:Create(sh, TweenInfo.new(0.22), {ImageTransparency = 0.5}):Play()
+    wait(0.22)
+    ts:Create(f, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.Out), {
+        Position = UDim2.new(1, -360, 1, -110)
+    }):Play()
+    wait(0.22)
     delay(t, function()
-        ts:Create(f, TweenInfo.new(0.3, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
-            Position = UDim2.new(1, -360, 1, 120),
-            BackgroundTransparency = 1
+        ts:Create(f, TweenInfo.new(0.22, Enum.EasingStyle.Quad, Enum.EasingDirection.In), {
+            Position = UDim2.new(1, -360, 1, 120)
         }):Play()
-        ts:Create(sh, TweenInfo.new(0.3), {ImageTransparency = 0.7}):Play()
-        wait(0.3)
+        ts:Create(f, TweenInfo.new(0.22), {BackgroundTransparency = 1}):Play()
+        ts:Create(sh, TweenInfo.new(0.22), {ImageTransparency = 1}):Play()
+        wait(0.22)
         f:Destroy()
     end)
 end
