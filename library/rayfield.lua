@@ -279,11 +279,11 @@ local RayfieldLibrary = {
 			Topbar = Color3.fromRGB(51, 50, 67),
 			Shadow = Color3.fromRGB(71, 70, 86),
 
-			NotificationBackground = Color3.fromRGB(35, 20, 40),
-			NotificationActionsBackground = Color3.fromRGB(240, 240, 250),
+			NotificationBackground = Color3.fromRGB(71, 70, 86),
+			NotificationActionsBackground = Color3.fromRGB(71, 70, 86),
 
-			TabBackground = Color3.fromRGB(60, 40, 80),
-			TabStroke = Color3.fromRGB(70, 45, 90),
+			TabBackground = Color3.fromRGB(71, 70, 86),
+			TabStroke = Color3.fromRGB(81, 75, 96),
 			TabBackgroundSelected = Color3.fromRGB(111, 206, 174),
 			TabTextColor = Color3.fromRGB(230, 230, 240),
 			SelectedTabTextColor = Color3.fromRGB(71, 70, 86),
