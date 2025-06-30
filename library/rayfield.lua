@@ -276,10 +276,10 @@ local RayfieldLibrary = {
 			TextColor = Color3.fromRGB(240, 240, 240),
 
 			Background = Color3.fromRGB(51, 50, 66),
-			Topbar = Color3.fromRGB(66, 65, 91),
+			Topbar = Color3.fromRGB(61, 60, 76),
 			Shadow = Color3.fromRGB(51, 50, 66),
 
-			NotificationBackground = Color3.fromRGB(71, 70, 86),
+			NotificationBackground = Color3.fromRGB(51, 50, 66),
 			NotificationActionsBackground = Color3.fromRGB(71, 70, 86),
 
 			TabBackground = Color3.fromRGB(76, 75, 91),
@@ -306,11 +306,11 @@ local RayfieldLibrary = {
 			ToggleEnabledOuterStroke = Color3.fromRGB(91, 186, 154),
 			ToggleDisabledOuterStroke = Color3.fromRGB(66, 65, 91),
 
-			DropdownSelected = Color3.fromRGB(50, 35, 70),
-			DropdownUnselected = Color3.fromRGB(35, 25, 50),
+			DropdownSelected = Color3.fromRGB(61, 60, 76),
+			DropdownUnselected = Color3.fromRGB(71, 70, 86),
 
-			InputBackground = Color3.fromRGB(45, 30, 60),
-			InputStroke = Color3.fromRGB(80, 50, 110),
+			InputBackground = Color3.fromRGB(61, 60, 76),
+			InputStroke = Color3.fromRGB(71, 70, 86),
 			PlaceholderColor = Color3.fromRGB(178, 150, 200)
 		},
 
