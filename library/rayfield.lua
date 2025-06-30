@@ -260,7 +260,7 @@ local RayfieldLibrary = {
 			ToggleEnabled = Color3.fromRGB(215, 67, 86),
 			ToggleDisabled = Color3.fromRGB(115, 85, 85),
 			ToggleEnabledStroke = Color3.fromRGB(124, 39, 50),
-			ToggleDisabledStroke = Color3.fromRGB(150, 110, 110),
+			ToggleDisabledStroke = Color3.fromRGB(80, 50, 50),
 			ToggleEnabledOuterStroke = Color3.fromRGB(124, 39, 50),
 			ToggleDisabledOuterStroke = Color3.fromRGB(80, 50, 50),
 		
