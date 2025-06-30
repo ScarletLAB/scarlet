@@ -275,9 +275,9 @@ local RayfieldLibrary = {
 		Minty = {
 			TextColor = Color3.fromRGB(240, 240, 240),
 
-			Background = Color3.fromRGB(30, 20, 40),
-			Topbar = Color3.fromRGB(40, 25, 50),
-			Shadow = Color3.fromRGB(20, 15, 30),
+			Background = Color3.fromRGB(71, 70, 86),
+			Topbar = Color3.fromRGB(51, 50, 67),
+			Shadow = Color3.fromRGB(71, 70, 86),
 
 			NotificationBackground = Color3.fromRGB(35, 20, 40),
 			NotificationActionsBackground = Color3.fromRGB(240, 240, 250),
