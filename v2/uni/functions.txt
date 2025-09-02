@@ -1,0 +1,40 @@
+[+] ESP:
+     [-] Nametags / Colorpicker
+     [-] Guntags / Colorpicker
+     [-] Skeleton / Colorpicker
+     [-] Boxes / Colorpicker
+     [-] 3D Boxes / Colorpicker
+     [-] Healthbar / Max/Min Colorpicker
+     [-] Tracers / Colorpicker / Position
+     [-] Chams / Colorpicker
+     [-] Chams Hand
+
+[+] Aimbot: -- UNDER DEVELOPMENT
+     [-] Aimbot / FOV
+     [-] Target Part
+     [-] Aimbot Mode
+     [-] Aimbot Keybind
+     [-] Wall Check
+     [-] Team Check
+     [-] Alive Check
+     [-] Forcefield Check
+     [-] FOV Filled
+     [-] FOV Color
+     [-] FOV Color Activated
+
+[+] Hitboxes: -- UNDER DEVELOPMENT
+     [-] Hitbox Extender
+     [-] Hitbox Part
+     [-] Hitbox Size
+     [-] Hitboxes Color
+     [-] Original Color
+
+[+] Misc: -- UNDER DEVELOPMENT
+     [-] Fly
+     [-] Fly Speed
+     [-] Fly Smoothing
+     [-] Fly Keybind
+     [-] NoClip
+     [-] Noclip Keybind
+     [-] Infinite Yield
+     [-] Dark Dex
