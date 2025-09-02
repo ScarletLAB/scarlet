@@ -1,0 +1,59 @@
+[+] ESP:
+     [-] Nametags / Colorpicker
+     [-] Guntags / Colorpicker
+     [-] Skeleton / Colorpicker
+     [-] Boxes / Colorpicker
+     [-] 3D Boxes / Colorpicker
+     [-] Healthbar / Max/Min Colorpicker
+     [-] Tracers / Colorpicker / Position
+     [-] Chams / Colorpicker
+     [-] Chams Hand
+
+[+] Aimbot: -- UNDER DEVELOPMENT
+     [-] Aimbot / FOV
+     [-] Target Part
+     [-] Aimbot Mode
+     [-] Aimbot Keybind
+     [-] Wall Check
+     [-] Team Check
+     [-] Alive Check
+     [-] Forcefield Check
+     [-] FOV Filled
+     [-] FOV Color
+     [-] FOV Color Activated
+
+[+] Explosives V2:
+     [-] RPG Spam
+     [-] RPG Distance
+     [-] Stinger Spam
+     [-] Stinger Distance
+     [-] Delete Explosions (AntiLag)
+
+[+] Farm:
+     [-] Farm Drones 
+     [-] Farm Crates
+     [-] Crate Farm Speed
+
+[+] Hitboxes: -- UNDER DEVELOPMENT
+     [-] Hitbox Extender
+     [-] Hitbox Part
+     [-] Hitbox Size
+     [-] Hitboxes Color
+     [-] Original Color
+
+[+] Gun Mods: -- UNDER DEVELOPMENT
+     [-] Infinite Ammo
+     [-] No Recoil / Spread
+     [-] Max FireRate
+
+[+] Misc: -- UNDER DEVELOPMENT
+     [-] Fly
+     [-] Fly Speed
+     [-] Fly Smoothing
+     [-] Fly Keybind
+     [-] NoClip
+     [-] Noclip Keybind
+     [-] Infinite Yield
+     [-] Dark Dex
+     [-] No Fall Damage
+     [-] Delete Doors / Fences
