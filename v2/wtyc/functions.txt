@@ -34,17 +34,18 @@
      [-] Farm Crates
      [-] Crate Farm Speed
 
-[+] Hitboxes: -- UNDER DEVELOPMENT
+[+] Hitboxes: 
      [-] Hitbox Extender
      [-] Hitbox Part
      [-] Hitbox Size
      [-] Hitboxes Color
      [-] Original Color
 
-[+] Gun Mods: -- UNDER DEVELOPMENT
+[+] Gun Mods: T
      [-] Infinite Ammo
      [-] No Recoil / Spread
      [-] Max FireRate
+     [-] Scope Sensitivity
 
 [+] Misc: -- UNDER DEVELOPMENT
      [-] Fly
