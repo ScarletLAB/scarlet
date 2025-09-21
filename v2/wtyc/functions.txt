@@ -1,3 +1,11 @@
+[+] Main:
+     [-] Infinite Yield
+     [-] Dark Dex
+     [-] Remote Spy
+     [-] Discord Link
+     [-] Serverhop
+     [-] Rejoin
+     [-] Bug Report
 [+] ESP:
      [-] Nametags / Colorpicker
      [-] Guntags / Colorpicker
@@ -41,7 +49,7 @@
      [-] Hitboxes Color
      [-] Original Color
 
-[+] Gun Mods: T
+[+] Gun Mods:
      [-] Infinite Ammo
      [-] No Recoil / Spread
      [-] Max FireRate
