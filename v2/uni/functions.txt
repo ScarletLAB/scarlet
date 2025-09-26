@@ -1,3 +1,11 @@
+[+] Main:
+     [-] Infinite Yield
+     [-] Dark Dex
+     [-] Remote Spy
+     [-] Discord Link
+     [-] Serverhop
+     [-] Rejoin
+     [-] Bug Report
 [+] ESP:
      [-] Nametags / Colorpicker
      [-] Guntags / Colorpicker
@@ -22,7 +30,7 @@
      [-] FOV Color
      [-] FOV Color Activated
 
-[+] Hitboxes: -- UNDER DEVELOPMENT
+[+] Hitboxes: 
      [-] Hitbox Extender
      [-] Hitbox Part
      [-] Hitbox Size
@@ -30,11 +38,7 @@
      [-] Original Color
 
 [+] Misc: -- UNDER DEVELOPMENT
-     [-] Fly
-     [-] Fly Speed
-     [-] Fly Smoothing
+     [-] Fly / Speed / Smoothing
      [-] Fly Keybind
      [-] NoClip
      [-] Noclip Keybind
-     [-] Infinite Yield
-     [-] Dark Dex
