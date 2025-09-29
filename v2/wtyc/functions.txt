@@ -31,8 +31,8 @@
      [-] FOV Color Activated
 
 [+] Explosives V2:
-     [-] RPG Spam
-     [-] RPG Distance
+     [-] RPG Spam | Distance | FireRate
+     [=] RPGS Target | Players | Shields | AC-130 Gunship
      [-] Stinger Spam
      [-] Stinger Distance
      [-] Delete Explosions (AntiLag)
@@ -40,7 +40,7 @@
 [+] Farm:
      [-] Farm Drones 
      [-] Farm Crates
-     [-] Crate Farm Speed
+     [-] Auto Buy | Delay
 
 [+] Hitboxes: 
      [-] Hitbox Extender
