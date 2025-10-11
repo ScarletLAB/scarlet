@@ -55,14 +55,13 @@
      [-] Max FireRate
      [-] Scope Sensitivity
 
-[+] Misc: -- UNDER DEVELOPMENT
+[+] Misc: 
      [-] Fly
      [-] Fly Speed
      [-] Fly Smoothing
      [-] Fly Keybind
      [-] NoClip
      [-] Noclip Keybind
-     [-] Infinite Yield
-     [-] Dark Dex
      [-] No Fall Damage
+     [-] Remove Nametags
      [-] Delete Doors / Fences
