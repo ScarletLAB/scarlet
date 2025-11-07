@@ -11,10 +11,11 @@
      [-] Guntags / Colorpicker
      [-] Skeleton / Colorpicker
      [-] Boxes / Colorpicker
+     [-] Boxes Filled / Gradient colorpicker / Transparency
      [-] 3D Boxes / Colorpicker
      [-] Healthbar / Max/Min Colorpicker
      [-] Tracers / Colorpicker / Position
-     [-] Chams / Colorpicker
+     [-] Chams / Colorpicker / Transparency
      [-] Chams Hand
 
 [+] Aimbot: -- UNDER DEVELOPMENT
