@@ -226,35 +226,4 @@ farm:CreateToggle({
             configuration.farm.crates.cistp = false
         end
     end,
-})
-
-farm:CreateDivider()
-
-farm:CreateToggle({
-    Name = "Auto Buy | ALPHA",
-    CurrentValue = configuration.farm.autobuy.autobuy,
-    Flag = "AutoBuy",
-    Callback = function(Value)
-        configuration.farm.autobuy.autobuy = Value
-        if Value then
-            autobuy()
-        else
-            if configuration.farm.autobuy.aplat and configuration.farm.autobuy.aplat.Parent then
-                configuration.farm.autobuy.aplat:Destroy()
-                configuration.farm.autobuy.aplat = nil
-            end
-        end
-    end,
-})
-
-farm:CreateSlider({
-   Name = "TP Delay",
-   Range = {0.10, 2},
-   Increment = 0.10,
-   Suffix = "Delay",
-   CurrentValue = configuration.farm.autobuy.delay,
-   Flag = "Slider1", 
-   Callback = function(Value)
-        configuration.farm.autobuy.delay = Value
-   end,
 })]]
