@@ -17,7 +17,7 @@ loadstring(game:HttpGet('https://raw.githubusercontent.com/ScarletLAB/scarlet/re
 ### Options
 ***You can add options before loadstring to configure Rayfield theme & keybinds.***
 ```lua
-AWTOptions = {
+Options = {
     Theme = "Minty",--Default,AmberGlow,Amethyst,Bloom,DarkBlue,Green,Light,Ocean,Serenity
     Keybind = "K"
 }
