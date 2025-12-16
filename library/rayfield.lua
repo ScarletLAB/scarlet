@@ -3,9 +3,10 @@
 	Rayfield Interface Suite
 	by Sirius
 
-	shlex | Designing + Programming
-	iRay  | Programming
-	Max   | Programming
+	shlex  | Designing + Programming
+	iRay   | Programming
+	Max    | Programming
+	Damian | Programming
 
 ]]
 
@@ -14,8 +15,8 @@ if debugX then
 end
 
 local function getService(name)
-    local service = game:GetService(name)
-    return if cloneref then cloneref(service) else service
+	local service = game:GetService(name)
+	return if cloneref then cloneref(service) else service
 end
 
 -- Loads and executes a function hosted on a remote URL. Cancels the request if the requested URL takes too long to respond.
@@ -70,7 +71,7 @@ end
 
 local requestsDisabled = true --getgenv and getgenv().DISABLE_RAYFIELD_REQUESTS
 local InterfaceBuild = '3K3W'
-local Release = "Build 1.672"
+local Release = "Build 1.68"
 local RayfieldFolder = "Rayfield"
 local ConfigurationFolder = RayfieldFolder.."/Configurations"
 local ConfigurationExtension = ".rfld"
@@ -87,6 +88,26 @@ local settingsTable = {
 	}
 }
 
+-- Settings that have been overridden by the developer. These will not be saved to the user's configuration file
+-- Overridden settings always take precedence over settings in the configuration file, and are cleared if the user changes the setting in the UI
+local overriddenSettings: { [string]: any } = {} -- For example, overriddenSettings["System.rayfieldOpen"] = "J"
+local function overrideSetting(category: string, name: string, value: any)
+	overriddenSettings[`{category}.{name}`] = value
+end
+
+local function getSetting(category: string, name: string): any
+	if overriddenSettings[`{category}.{name}`] ~= nil then
+		return overriddenSettings[`{category}.{name}`]
+	elseif settingsTable[category][name] ~= nil then
+		return settingsTable[category][name].Value
+	end
+end
+
+-- If requests/analytics have been disabled by developer, set the user-facing setting to false as well
+if requestsDisabled then
+	overrideSetting("System", "usageAnalytics", false)
+end
+
 local HttpService = getService('HttpService')
 local RunService = getService('RunService')
 
@@ -94,15 +115,24 @@ local RunService = getService('RunService')
 local useStudio = RunService:IsStudio() or false
 
 local settingsCreated = false
+local settingsInitialized = false -- Whether the UI elements in the settings page have been set to the proper values
 local cachedSettings
---local prompt = useStudio and require(script.Parent.prompt) or loadWithTimeout('https://raw.githubusercontent.com/SiriusSoftwareLtd/Sirius/refs/heads/request/prompt.lua')
-local request = (syn and syn.request) or (fluxus and fluxus.request) or (http and http.request) or http_request or request
+local prompt = useStudio and require(script.Parent.prompt) or loadWithTimeout('https://raw.githubusercontent.com/SiriusSoftwareLtd/Sirius/refs/heads/request/prompt.lua')
+local requestFunc = (syn and syn.request) or (fluxus and fluxus.request) or (http and http.request) or http_request or request
+
+-- Validate prompt loaded correctly
+if not prompt and not useStudio then
+	warn("Failed to load prompt library, using fallback")
+	prompt = {
+		create = function() end -- No-op fallback
+	}
+end
 
 
 
 local function loadSettings()
 	local file = nil
-	
+
 	local success, result =	pcall(function()
 		task.spawn(function()
 			if isfolder and isfolder(RayfieldFolder) then
@@ -142,15 +172,16 @@ local function loadSettings()
 						for settingName, setting in pairs(settingCategory) do
 							if file[categoryName][settingName] then
 								setting.Value = file[categoryName][settingName].Value
-								setting.Element:Set(setting.Value)
+								setting.Element:Set(getSetting(categoryName, settingName))
 							end
 						end
 					end
 				end
 			end
+			settingsInitialized = true
 		end)
 	end)
-	
+
 	if not success then 
 		if writefile then
 			warn('Rayfield had an issue accessing configuration saving capability.')
@@ -168,59 +199,64 @@ if debugX then
 	warn('Settings Loaded')
 end
 
---if not cachedSettings or not cachedSettings.System or not cachedSettings.System.usageAnalytics then
---	local fileFunctionsAvailable = isfile and writefile and readfile
-
---	if not fileFunctionsAvailable and not useStudio then
---		warn('Rayfield Interface Suite | Sirius Analytics:\n\n\nAs you don\'t have file functionality with your executor, we are unable to save whether you want to opt in or out to analytics.\nIf you do not want to take part in anonymised usage statistics, let us know in our Discord at sirius.menu/discord and we will manually opt you out.')
---		analytics = true	
---	else
---		prompt.create(
---			'Help us improve',
---	            [[Would you like to allow Sirius to collect usage statistics?
-
---<font transparency='0.4'>No data is linked to you or your personal activity.</font>]],
---			'Continue',
---			'Cancel',
---			function(result)
---				settingsTable.System.usageAnalytics.Value = result
---				analytics = result
---			end
---		)
---	end
-
---	repeat task.wait() until analytics ~= nil
---end
-
+local analyticsLib
+local sendReport = function(ev_n, sc_n) warn("Failed to load report function") end
 if not requestsDisabled then
 	if debugX then
 		warn('Querying Settings for Reporter Information')
+	end	
+	analyticsLib = loadWithTimeout("https://analytics.sirius.menu/script")
+	if not analyticsLib then
+		warn("Failed to load analytics reporter")
+		analyticsLib = nil
+	elseif analyticsLib and type(analyticsLib.load) == "function" then
+		analyticsLib:load()
+	else
+		warn("Analytics library loaded but missing load function")
+		analyticsLib = nil
 	end
-	local function sendReport()
+	sendReport = function(ev_n, sc_n)
+		if not (type(analyticsLib) == "table" and type(analyticsLib.isLoaded) == "function" and analyticsLib:isLoaded()) then
+			warn("Analytics library not loaded")
+			return
+		end
 		if useStudio then
 			print('Sending Analytics')
 		else
 			if debugX then warn('Reporting Analytics') end
-			task.spawn(function()
-				local success, reporter = pcall(function()
-					return loadstring(game:HttpGet("https://analytics.sirius.menu/v1/reporter", true))()
-				end)
-				if success and reporter then
-					pcall(function()
-						reporter.report("Rayfield", Release, InterfaceBuild)
-					end)
-				else
-					warn("Failed to load or execute the reporter. \nPlease notify Rayfield developers at sirius.menu/discord.")
-				end
-			end)
+			analyticsLib:report(
+				{
+					["name"] = ev_n,
+					["script"] = {["name"] = sc_n, ["version"] = Release}
+				},
+				{
+					["version"] = InterfaceBuild
+				}
+			)
 			if debugX then warn('Finished Report') end
 		end
 	end
 	if cachedSettings and (#cachedSettings == 0 or (cachedSettings.System and cachedSettings.System.usageAnalytics and cachedSettings.System.usageAnalytics.Value)) then
-		sendReport()
+		sendReport("execution", "Rayfield")
 	elseif not cachedSettings then
-		sendReport()
+		sendReport("execution", "Rayfield")
 	end
+end
+
+local promptUser = 2
+
+if promptUser == 1 and prompt and type(prompt.create) == "function" then
+	prompt.create(
+		'Be cautious when running scripts',
+	    [[Please be careful when running scripts from unknown developers. This script has already been ran.
+
+<font transparency='0.3'>Some scripts may steal your items or in-game goods.</font>]],
+		'Okay',
+		'',
+		function()
+
+		end
+	)
 end
 
 if debugX then
@@ -665,6 +701,7 @@ local buildAttempts = 0
 local correctBuild = false
 local warned
 local globalLoaded
+local rayfieldDestroyed = false -- True when RayfieldLibrary:Destroy() is called
 
 repeat
 	if Rayfield:FindFirstChild('Build') and Rayfield.Build.Value == InterfaceBuild then
@@ -1193,9 +1230,9 @@ local function Hide(notify: boolean?)
 	Debounce = true
 	if notify then
 		if useMobilePrompt then 
-			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = "The interface has been hidden, you can unhide the interface by tapping 'Show Rayfield'.", Duration = 7, Image = 4400697855})
+			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = "The interface has been hidden, you can unhide the interface by tapping 'Show'.", Duration = 7, Image = 4400697855})
 		else
-			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = `The interface has been hidden, you can unhide the interface by tapping {settingsTable.General.rayfieldOpen.Value or 'K'}.`, Duration = 7, Image = 4400697855})
+			RayfieldLibrary:Notify({Title = "Interface Hidden", Content = `The interface has been hidden, you can unhide the interface by tapping {getSetting("General", "rayfieldOpen")}.`, Duration = 7, Image = 4400697855})
 		end
 	end
 
@@ -1476,7 +1513,7 @@ local function Minimise()
 	Debounce = false
 end
 
-local function updateSettings()
+local function saveSettings() -- Save settings to config file
 	local encoded
 	local success, err = pcall(function()
 		encoded = HttpService:JSONEncode(settingsTable)
@@ -1492,6 +1529,15 @@ local function updateSettings()
 			writefile(RayfieldFolder..'/settings'..ConfigurationExtension, encoded)
 		end
 	end
+end
+
+local function updateSetting(category: string, setting: string, value: any)
+	if not settingsInitialized then
+		return
+	end
+	settingsTable[category][setting].Value = value
+	overriddenSettings[`{category}.{setting}`] = nil -- If user changes an overriden setting, remove the override
+	saveSettings()
 end
 
 local function createSettings(window)
@@ -1516,7 +1562,7 @@ local function createSettings(window)
 	for categoryName, settingCategory in pairs(settingsTable) do
 		newTab:CreateSection(categoryName)
 
-		for _, setting in pairs(settingCategory) do
+		for settingName, setting in pairs(settingCategory) do
 			if setting.Type == 'input' then
 				setting.Element = newTab:CreateInput({
 					Name = setting.Name,
@@ -1525,8 +1571,7 @@ local function createSettings(window)
 					Ext = true,
 					RemoveTextAfterFocusLost = setting.ClearOnFocus,
 					Callback = function(Value)
-						setting.Value = Value
-						updateSettings()
+						updateSetting(categoryName, settingName, Value)
 					end,
 				})
 			elseif setting.Type == 'toggle' then
@@ -1535,8 +1580,7 @@ local function createSettings(window)
 					CurrentValue = setting.Value,
 					Ext = true,
 					Callback = function(Value)
-						setting.Value = Value
-						updateSettings()
+						updateSetting(categoryName, settingName, Value)
 					end,
 				})
 			elseif setting.Type == 'bind' then
@@ -1547,8 +1591,7 @@ local function createSettings(window)
 					Ext = true,
 					CallOnChange = true,
 					Callback = function(Value)
-						setting.Value = Value
-						updateSettings()
+						updateSetting(categoryName, settingName, Value)
 					end,
 				})
 			end
@@ -1557,12 +1600,13 @@ local function createSettings(window)
 
 	settingsCreated = true
 	loadSettings()
-	updateSettings()
+	saveSettings()
 end
 
 
 
 function RayfieldLibrary:CreateWindow(Settings)
+	print('creating window')
 	if Rayfield:FindFirstChild('Loading') then
 		if getgenv and not getgenv().rayfieldCached then
 			Rayfield.Enabled = true
@@ -1582,10 +1626,30 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 	end
 
+	if Settings.ToggleUIKeybind then -- Can either be a string or an Enum.KeyCode
+		local keybind = Settings.ToggleUIKeybind
+		if type(keybind) == "string" then
+			keybind = string.upper(keybind)
+			assert(pcall(function()
+				return Enum.KeyCode[keybind]
+			end), "ToggleUIKeybind must be a valid KeyCode")
+			overrideSetting("General", "rayfieldOpen", keybind)
+		elseif typeof(keybind) == "EnumItem" then
+			assert(keybind.EnumType == Enum.KeyCode, "ToggleUIKeybind must be a KeyCode enum")
+			overrideSetting("General", "rayfieldOpen", keybind.Name)
+		else
+			error("ToggleUIKeybind must be a string or KeyCode enum")
+		end
+	end
+
 	if isfolder and not isfolder(RayfieldFolder) then
 		makefolder(RayfieldFolder)
 	end
 
+	-- Attempt to report an event to analytics
+	if not requestsDisabled then
+		sendReport("window_created", Settings.Name or "Unknown")
+	end
 	local Passthrough = false
 	Topbar.Title.Text = Settings.Name
 
@@ -1597,6 +1661,10 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 	LoadingFrame.Title.TextTransparency = 1
 	LoadingFrame.Subtitle.TextTransparency = 1
+
+	if Settings.ShowText then
+		MPrompt.Title.Text = 'Show '..Settings.ShowText
+	end
 
 	LoadingFrame.Version.TextTransparency = 1
 	LoadingFrame.Title.Text = Settings.LoadingTitle or "Rayfield"
@@ -1695,15 +1763,15 @@ function RayfieldLibrary:CreateWindow(Settings)
 		end
 	end
 
-	if Settings.Discord and not useStudio then
+	if Settings.Discord and Settings.Discord.Enabled and not useStudio then
 		if isfolder and not isfolder(RayfieldFolder.."/Discord Invites") then
 			makefolder(RayfieldFolder.."/Discord Invites")
 		end
 
 		if isfile and not isfile(RayfieldFolder.."/Discord Invites".."/"..Settings.Discord.Invite..ConfigurationExtension) then
-			if request then
+			if requestFunc then
 				pcall(function()
-					request({
+					requestFunc({
 						Url = 'http://127.0.0.1:6463/rpc?v=1',
 						Method = 'POST',
 						Headers = {
@@ -2090,6 +2158,10 @@ function RayfieldLibrary:CreateWindow(Settings)
 
 			Button.Interact.MouseButton1Click:Connect(function()
 				local Success, Response = pcall(ButtonSettings.Callback)
+				-- Prevents animation from trying to play if the button's callback called RayfieldLibrary:Destroy()
+				if rayfieldDestroyed then
+					return
+				end
 				if not Success then
 					TweenService:Create(Button, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {BackgroundColor3 = Color3.fromRGB(85, 0, 0)}):Play()
 					TweenService:Create(Button.ElementIndicator, TweenInfo.new(0.6, Enum.EasingStyle.Exponential), {TextTransparency = 1}):Play()
@@ -2271,7 +2343,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				local r,g,b = math.floor((h*255)+0.5),math.floor((s*255)+0.5),math.floor((v*255)+0.5)
 				ColorPickerSettings.Color = Color3.fromRGB(r,g,b)
 				if not ColorPickerSettings.Ext then
-					SaveConfiguration(ColorPickerSettings.Flag..'\n'..tostring(ColorPickerSettings.Color))
+					SaveConfiguration()
 				end
 			end)
 			--RGB
@@ -2292,7 +2364,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 				local r,g,b = math.floor((h*255)+0.5),math.floor((s*255)+0.5),math.floor((v*255)+0.5)
 				ColorPickerSettings.Color = Color3.fromRGB(r,g,b)
 				if not ColorPickerSettings.Ext then
-					SaveConfiguration()
+					SaveConfiguration(ColorPickerSettings.Flag..'\n'..tostring(ColorPickerSettings.Color))
 				end
 			end
 			ColorPicker.RGB.RInput.InputBox.FocusLost:connect(function()
@@ -3002,7 +3074,7 @@ function RayfieldLibrary:CreateWindow(Settings)
 			end)
 			Keybind.KeybindFrame.KeybindBox.FocusLost:Connect(function()
 				CheckingForKey = false
-				if Keybind.KeybindFrame.KeybindBox.Text == nil or "" then
+				if Keybind.KeybindFrame.KeybindBox.Text == nil or Keybind.KeybindFrame.KeybindBox.Text == "" then
 					Keybind.KeybindFrame.KeybindBox.Text = KeybindSettings.CurrentKeybind
 					if not KeybindSettings.Ext then
 						SaveConfiguration()
@@ -3525,9 +3597,9 @@ function RayfieldLibrary:CreateWindow(Settings)
 	local success, result = pcall(function()
 		createSettings(Window)
 	end)
-	
+
 	if not success then warn('Rayfield had an issue creating settings.') end
-	
+
 	return Window
 end
 
@@ -3552,6 +3624,7 @@ end
 
 local hideHotkeyConnection -- Has to be initialized here since the connection is made later in the script
 function RayfieldLibrary:Destroy()
+	rayfieldDestroyed = true
 	hideHotkeyConnection:Disconnect()
 	Rayfield:Destroy()
 end
@@ -3648,7 +3721,7 @@ Topbar.Hide.MouseButton1Click:Connect(function()
 end)
 
 hideHotkeyConnection = UserInputService.InputBegan:Connect(function(input, processed)
-	if (input.KeyCode == Enum.KeyCode[settingsTable.General.rayfieldOpen.Value or 'K'] and not processed) then
+	if (input.KeyCode == Enum.KeyCode[getSetting("General", "rayfieldOpen")]) and not processed then
 		if Debounce then return end
 		if Hidden then
 			Hidden = false
@@ -3732,150 +3805,150 @@ if useStudio then
 	-- Feel free to place your own script here to see how it'd work in Roblox Studio before running it on your execution software.
 
 
-	local Window = RayfieldLibrary:CreateWindow({
-		Name = "Rayfield Example Window",
-		LoadingTitle = "Rayfield Interface Suite",
-		Theme = 'Default',
-		Icon = 0,
-		LoadingSubtitle = "by Sirius",
-		ConfigurationSaving = {
-			Enabled = true,
-			FolderName = nil, -- Create a custom folder for your hub/game
-			FileName = "Big Hub52"
-		},
-		Discord = {
-			Enabled = false,
-			Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
-			RememberJoins = true -- Set this to false to make them join the discord every time they load it up
-		},
-		KeySystem = false, -- Set this to true to use our key system
-		KeySettings = {
-			Title = "Untitled",
-			Subtitle = "Key System",
-			Note = "No method of obtaining the key is provided",
-			FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
-			SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
-			GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
-			Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
-		}
-	})
+	--local Window = RayfieldLibrary:CreateWindow({
+	--	Name = "Rayfield Example Window",
+	--	LoadingTitle = "Rayfield Interface Suite",
+	--	Theme = 'Default',
+	--	Icon = 0,
+	--	LoadingSubtitle = "by Sirius",
+	--	ConfigurationSaving = {
+	--		Enabled = true,
+	--		FolderName = nil, -- Create a custom folder for your hub/game
+	--		FileName = "Big Hub52"
+	--	},
+	--	Discord = {
+	--		Enabled = false,
+	--		Invite = "noinvitelink", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+	--		RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+	--	},
+	--	KeySystem = false, -- Set this to true to use our key system
+	--	KeySettings = {
+	--		Title = "Untitled",
+	--		Subtitle = "Key System",
+	--		Note = "No method of obtaining the key is provided",
+	--		FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+	--		SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+	--		GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+	--		Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+	--	}
+	--})
 
-	local Tab = Window:CreateTab("Tab Example", 'key-round') -- Title, Image
-	local Tab2 = Window:CreateTab("Tab Example 2", 4483362458) -- Title, Image
+	--local Tab = Window:CreateTab("Tab Example", 'key-round') -- Title, Image
+	--local Tab2 = Window:CreateTab("Tab Example 2", 4483362458) -- Title, Image
 
-	local Section = Tab2:CreateSection("Section")
-
-
-	local ColorPicker = Tab2:CreateColorPicker({
-		Name = "Color Picker",
-		Color = Color3.fromRGB(255,255,255),
-		Flag = "ColorPicfsefker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-		Callback = function(Value)
-			-- The function that takes place every time the color picker is moved/changed
-			-- The variable (Value) is a Color3fromRGB value based on which color is selected
-		end
-	})
-
-	local Slider = Tab2:CreateSlider({
-		Name = "Slider Example",
-		Range = {0, 100},
-		Increment = 10,
-		Suffix = "Bananas",
-		CurrentValue = 40,
-		Flag = "Slidefefsr1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-		Callback = function(Value)
-			-- The function that takes place when the slider changes
-			-- The variable (Value) is a number which correlates to the value the slider is currently at
-		end,
-	})
-
-	local Input = Tab2:CreateInput({
-		Name = "Input Example",
-		CurrentValue = '',
-		PlaceholderText = "Input Placeholder",
-		Flag = 'dawdawd',
-		RemoveTextAfterFocusLost = false,
-		Callback = function(Text)
-			-- The function that takes place when the input is changed
-			-- The variable (Text) is a string for the value in the text box
-		end,
-	})
+	--local Section = Tab2:CreateSection("Section")
 
 
-	--RayfieldLibrary:Notify({Title = "Rayfield Interface", Content = "Welcome to Rayfield. These - are the brand new notification design for Rayfield, with custom sizing and Rayfield calculated wait times.", Image = 4483362458})
+	--local ColorPicker = Tab2:CreateColorPicker({
+	--	Name = "Color Picker",
+	--	Color = Color3.fromRGB(255,255,255),
+	--	Flag = "ColorPicfsefker1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	--	Callback = function(Value)
+	--		-- The function that takes place every time the color picker is moved/changed
+	--		-- The variable (Value) is a Color3fromRGB value based on which color is selected
+	--	end
+	--})
 
-	local Section = Tab:CreateSection("Section Example")
+	--local Slider = Tab2:CreateSlider({
+	--	Name = "Slider Example",
+	--	Range = {0, 100},
+	--	Increment = 10,
+	--	Suffix = "Bananas",
+	--	CurrentValue = 40,
+	--	Flag = "Slidefefsr1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	--	Callback = function(Value)
+	--		-- The function that takes place when the slider changes
+	--		-- The variable (Value) is a number which correlates to the value the slider is currently at
+	--	end,
+	--})
 
-	local Button = Tab:CreateButton({
-		Name = "Change Theme",
-		Callback = function()
-			-- The function that takes place when the button is pressed
-			Window.ModifyTheme('DarkBlue')
-		end,
-	})
+	--local Input = Tab2:CreateInput({
+	--	Name = "Input Example",
+	--	CurrentValue = '',
+	--	PlaceholderText = "Input Placeholder",
+	--	Flag = 'dawdawd',
+	--	RemoveTextAfterFocusLost = false,
+	--	Callback = function(Text)
+	--		-- The function that takes place when the input is changed
+	--		-- The variable (Text) is a string for the value in the text box
+	--	end,
+	--})
 
-	local Toggle = Tab:CreateToggle({
-		Name = "Toggle Example",
-		CurrentValue = false,
-		Flag = "Toggle1adwawd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-		Callback = function(Value)
-			-- The function that takes place when the toggle is pressed
-			-- The variable (Value) is a boolean on whether the toggle is true or false
-		end,
-	})
 
-	local ColorPicker = Tab:CreateColorPicker({
-		Name = "Color Picker",
-		Color = Color3.fromRGB(255,255,255),
-		Flag = "ColorPicker1awd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-		Callback = function(Value)
-			-- The function that takes place every time the color picker is moved/changed
-			-- The variable (Value) is a Color3fromRGB value based on which color is selected
-		end
-	})
+	----RayfieldLibrary:Notify({Title = "Rayfield Interface", Content = "Welcome to Rayfield. These - are the brand new notification design for Rayfield, with custom sizing and Rayfield calculated wait times.", Image = 4483362458})
 
-	local Slider = Tab:CreateSlider({
-		Name = "Slider Example",
-		Range = {0, 100},
-		Increment = 10,
-		Suffix = "Bananas",
-		CurrentValue = 40,
-		Flag = "Slider1dawd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-		Callback = function(Value)
-			-- The function that takes place when the slider changes
-			-- The variable (Value) is a number which correlates to the value the slider is currently at
-		end,
-	})
+	--local Section = Tab:CreateSection("Section Example")
 
-	local Input = Tab:CreateInput({
-		Name = "Input Example",
-		CurrentValue = "Helo",
-		PlaceholderText = "Adaptive Input",
-		RemoveTextAfterFocusLost = false,
-		Flag = 'Input1',
-		Callback = function(Text)
-			-- The function that takes place when the input is changed
-			-- The variable (Text) is a string for the value in the text box
-		end,
-	})
+	--local Button = Tab:CreateButton({
+	--	Name = "Change Theme",
+	--	Callback = function()
+	--		-- The function that takes place when the button is pressed
+	--		Window.ModifyTheme('DarkBlue')
+	--	end,
+	--})
 
-	local thoptions = {}
-	for themename, theme in pairs(RayfieldLibrary.Theme) do
-		table.insert(thoptions, themename)
-	end
+	--local Toggle = Tab:CreateToggle({
+	--	Name = "Toggle Example",
+	--	CurrentValue = false,
+	--	Flag = "Toggle1adwawd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	--	Callback = function(Value)
+	--		-- The function that takes place when the toggle is pressed
+	--		-- The variable (Value) is a boolean on whether the toggle is true or false
+	--	end,
+	--})
 
-	local Dropdown = Tab:CreateDropdown({
-		Name = "Theme",
-		Options = thoptions,
-		CurrentOption = {"Default"},
-		MultipleOptions = false,
-		Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-		Callback = function(Options)
-			--Window.ModifyTheme(Options[1])
-			-- The function that takes place when the selected option is changed
-			-- The variable (Options) is a table of strings for the current selected options
-		end,
-	})
+	--local ColorPicker = Tab:CreateColorPicker({
+	--	Name = "Color Picker",
+	--	Color = Color3.fromRGB(255,255,255),
+	--	Flag = "ColorPicker1awd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	--	Callback = function(Value)
+	--		-- The function that takes place every time the color picker is moved/changed
+	--		-- The variable (Value) is a Color3fromRGB value based on which color is selected
+	--	end
+	--})
+
+	--local Slider = Tab:CreateSlider({
+	--	Name = "Slider Example",
+	--	Range = {0, 100},
+	--	Increment = 10,
+	--	Suffix = "Bananas",
+	--	CurrentValue = 40,
+	--	Flag = "Slider1dawd", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	--	Callback = function(Value)
+	--		-- The function that takes place when the slider changes
+	--		-- The variable (Value) is a number which correlates to the value the slider is currently at
+	--	end,
+	--})
+
+	--local Input = Tab:CreateInput({
+	--	Name = "Input Example",
+	--	CurrentValue = "Helo",
+	--	PlaceholderText = "Adaptive Input",
+	--	RemoveTextAfterFocusLost = false,
+	--	Flag = 'Input1',
+	--	Callback = function(Text)
+	--		-- The function that takes place when the input is changed
+	--		-- The variable (Text) is a string for the value in the text box
+	--	end,
+	--})
+
+	--local thoptions = {}
+	--for themename, theme in pairs(RayfieldLibrary.Theme) do
+	--	table.insert(thoptions, themename)
+	--end
+
+	--local Dropdown = Tab:CreateDropdown({
+	--	Name = "Theme",
+	--	Options = thoptions,
+	--	CurrentOption = {"Default"},
+	--	MultipleOptions = false,
+	--	Flag = "Dropdown1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	--	Callback = function(Options)
+	--		--Window.ModifyTheme(Options[1])
+	--		-- The function that takes place when the selected option is changed
+	--		-- The variable (Options) is a table of strings for the current selected options
+	--	end,
+	--})
 
 
 	--Window.ModifyTheme({
@@ -3919,22 +3992,22 @@ if useStudio then
 	--	PlaceholderColor = Color3.fromRGB(150, 150, 150)
 	--})
 
-	local Keybind = Tab:CreateKeybind({
-		Name = "Keybind Example",
-		CurrentKeybind = "Q",
-		HoldToInteract = false,
-		Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
-		Callback = function(Keybind)
-			-- The function that takes place when the keybind is pressed
-			-- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
-		end,
-	})
+	--local Keybind = Tab:CreateKeybind({
+	--	Name = "Keybind Example",
+	--	CurrentKeybind = "Q",
+	--	HoldToInteract = false,
+	--	Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+	--	Callback = function(Keybind)
+	--		-- The function that takes place when the keybind is pressed
+	--		-- The variable (Keybind) is a boolean for whether the keybind is being held or not (HoldToInteract needs to be true)
+	--	end,
+	--})
 
-	local Label = Tab:CreateLabel("Label Example")
+	--local Label = Tab:CreateLabel("Label Example")
 
-	local Label2 = Tab:CreateLabel("Warning", 4483362458, Color3.fromRGB(255, 159, 49),  true)
+	--local Label2 = Tab:CreateLabel("Warning", 4483362458, Color3.fromRGB(255, 159, 49),  true)
 
-	local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph Example"})
+	--local Paragraph = Tab:CreateParagraph({Title = "Paragraph Example", Content = "Paragraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph ExampleParagraph Example"})
 end
 
 if CEnabled and Main:FindFirstChild('Notice') then
@@ -3948,10 +4021,10 @@ if CEnabled and Main:FindFirstChild('Notice') then
 	TweenService:Create(Main.Notice, TweenInfo.new(0.5, Enum.EasingStyle.Exponential, Enum.EasingDirection.InOut), {Size = UDim2.new(0, 280, 0, 35), Position = UDim2.new(0.5, 0, 0, -50), BackgroundTransparency = 0.5}):Play()
 	TweenService:Create(Main.Notice.Title, TweenInfo.new(0.5, Enum.EasingStyle.Exponential), {TextTransparency = 0.1}):Play()
 end
-
--- if not useStudio then
--- 	task.spawn(loadWithTimeout, "https://raw.githubusercontent.com/SiriusSoftwareLtd/Sirius/refs/heads/request/boost.lua")
--- end
+-- AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA why :(
+--if not useStudio then
+--	task.spawn(loadWithTimeout, "https://raw.githubusercontent.com/SiriusSoftwareLtd/Sirius/refs/heads/request/boost.lua")
+--end
 
 task.delay(4, function()
 	RayfieldLibrary.LoadConfiguration()
