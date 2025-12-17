@@ -11,14 +11,14 @@
      [-] Guntags / Colorpicker
      [-] Skeleton / Colorpicker
      [-] Boxes / Colorpicker
-     [-] Boxes Filled / Gradient colorpicker / Transparency
+     [-] Boxes Filled / Gradient Colorpicker / Transparency
      [-] 3D Boxes / Colorpicker
      [-] Healthbar / Max/Min Colorpicker
      [-] Tracers / Colorpicker / Position
      [-] Chams / Colorpicker / Transparency
      [-] Chams Hand
 
-[+] Aimbot: -- UNDER DEVELOPMENT
+[+] Aimbot:
      [-] Aimbot / FOV
      [-] Target Part
      [-] Aimbot Mode
@@ -40,7 +40,6 @@
 
 [+] Farm:
      [-] Farm Drones 
-     [-] Farm Crates
      [-] Auto Buy | Delay
 
 [+] Hitboxes: 
@@ -57,11 +56,11 @@
      [-] Scope Sensitivity
 
 [+] Misc: 
-     [-] Fly
+     [-] Fly | Keybind
      [-] Fly Speed
      [-] Fly Smoothing
      [-] Fly Keybind
-     [-] NoClip
+     [-] NoClip | Keybind
      [-] Noclip Keybind
      [-] No Fall Damage
      [-] Remove Nametags
