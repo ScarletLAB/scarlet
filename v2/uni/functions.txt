@@ -18,7 +18,7 @@
      [-] Chams / Colorpicker / Transparency
      [-] Chams Hand
 
-[+] Aimbot: -- UNDER DEVELOPMENT
+[+] Aimbot:
      [-] Aimbot / FOV
      [-] Target Part
      [-] Aimbot Mode
@@ -38,8 +38,8 @@
      [-] Hitboxes Color
      [-] Original Color
 
-[+] Misc: -- UNDER DEVELOPMENT
-     [-] Fly / Speed / Smoothing
+[+] Misc:
+     [-] Fly / Speed / Smoothing / Keybind
      [-] Fly Keybind
-     [-] NoClip
+     [-] NoClip / Keybind
      [-] Noclip Keybind
