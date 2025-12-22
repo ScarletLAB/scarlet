@@ -20,7 +20,7 @@
 
 [+] Aimbot:
      [-] Aimbot / FOV
-     [-] Target Part
+     [-] Target Part / Find Fallback Part
      [-] Aimbot Mode
      [-] Aimbot Keybind
      [-] Wall Check
