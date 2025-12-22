@@ -5,7 +5,7 @@
      [-] Discord Link
      [-] Serverhop
      [-] Rejoin
-     [-] Bug Report
+     [-] Load Configuration
 [+] ESP:
      [-] Nametags / Colorpicker
      [-] Guntags / Colorpicker
