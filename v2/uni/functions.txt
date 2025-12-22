@@ -5,7 +5,7 @@
      [-] Discord Link
      [-] Serverhop
      [-] Rejoin
-     [-] Bug Report
+     [-] Load Configuration
 [+] ESP:
      [-] Nametags / Colorpicker
      [-] Guntags / Colorpicker
@@ -20,7 +20,7 @@
 
 [+] Aimbot:
      [-] Aimbot / FOV
-     [-] Target Part
+     [-] Target Part / Find Available Part
      [-] Aimbot Mode
      [-] Aimbot Keybind
      [-] Wall Check
