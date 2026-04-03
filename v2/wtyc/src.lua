@@ -1,1 +1,1 @@
-loadstring(game:HttpGet("https://scarletservices-cloud.onrender.com/api/wtyc/src.js"))()
+loadstring(game:HttpGet("https://scarlet-services-cloud.vercel.app/api/wtyc/src"))()
