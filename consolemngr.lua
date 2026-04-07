@@ -1,4 +1,8 @@
 --[[
+This tool is created to comfortable log n copy console messages in roblox, making easy logging errors for users and developers both. has a shitcode, thanks to me 1 year ago
+]]
+
+--[[
 To log messages in console before script executed, paste this codeblock in your main script:
 if not _G.__LOGS_BEFORE then
     _G.__LOGS_BEFORE = {}
